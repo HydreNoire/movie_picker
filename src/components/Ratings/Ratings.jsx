@@ -20,7 +20,6 @@ export function Ratings({ rating }) {
     starArray.push(<StarEmpty key={"star-empty" + i} />);
   }
 
-  console.log(starArray);
-
+  // console.log(starArray);
   return <div>{starArray}</div>;
 }
