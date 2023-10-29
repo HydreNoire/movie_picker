@@ -6,26 +6,49 @@ import { BACKDROP_BASE_URL } from "./config";
 import { TVShowDetails } from "./components/TVShowDetails/TVShowDetails";
 import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.jpg";
-import { TVShowListItem } from "./components/TVShowListItem/TVShowListItem";
 import { TVShowList } from "./components/TVShowList/TVShowList";
+import { SearchBar } from "./components/SearchBar/SearchBar";
 
 export function App() {
   const [currentTVShow, setCurrentTVShow] = useState();
   const [recommendationsList, setRecommendationsList] = useState([]);
 
   async function fetchPopulars() {
-    const populars = await TVShowAPI.fetchPopulars();
+    try {
+      const populars = await TVShowAPI.fetchPopulars();
 
-    if (populars.length > 0) {
-      setCurrentTVShow(populars[2]);
+      if (populars.length > 0) {
+        setCurrentTVShow(populars[2]);
+      }
+    } catch (e) {
+      alert("Error on the search for populars shows");
     }
   }
 
   async function fetchRecommendations(tvShowId) {
-    const recommendations = await TVShowAPI.fetchRecommendations(tvShowId);
+    try {
+      const recommendations = await TVShowAPI.fetchRecommendations(tvShowId);
 
-    if (recommendations.length > 0) {
-      setRecommendationsList(recommendations.slice(0, 10));
+      if (recommendations.length > 0) {
+        setRecommendationsList(recommendations.slice(0, 10));
+      }
+    } catch (e) {
+      alert("Error when finding recommendations");
+    }
+  }
+
+  async function searchTVShow(tvShowName) {
+    try {
+      const searchResponse = await TVShowAPI.fetchByTitle(tvShowName);
+      if (searchResponse.length > 0) {
+        setCurrentTVShow(searchResponse[0]);
+      } else {
+        alert(
+          "We can't find your show, you maybe unspell it or it doesn't exist"
+        );
+      }
+    } catch (e) {
+      alert("Error when searching your show");
     }
   }
 
@@ -60,7 +83,7 @@ export function App() {
           </div>
 
           <div className="col-sm-12 col-md-4">
-            <input type="text" name="" id="" />
+            <SearchBar onSubmit={searchTVShow} />
           </div>
         </div>
       </div>

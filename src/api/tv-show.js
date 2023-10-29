@@ -16,4 +16,13 @@ export class TVShowAPI {
         // console.log(recommendationShows.results);
         return recommendationShows.results;
     }
+
+    static async fetchByTitle(title) {
+        const response = await fetch(`${BASE_URL}search/tv${API_KEY_PARAM}&query=${title}`);
+        const searchingShow = await response.json();
+
+        console.log("***", searchingShow);
+        // console.log(recommendationShows.results);
+        return searchingShow.results;
+    }
 }
