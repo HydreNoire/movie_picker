@@ -21,7 +21,7 @@ export function App() {
         setCurrentTVShow(populars[2]);
       }
     } catch (e) {
-      alert("Error on the search for populars shows");
+      alert("An error occurred while retrieving popular shows.");
     }
   }
 
@@ -33,7 +33,7 @@ export function App() {
         setRecommendationsList(recommendations.slice(0, 10));
       }
     } catch (e) {
-      alert("Error when finding recommendations");
+      alert("We haven't managed to find the shows recommended for the series.");
     }
   }
 
@@ -44,11 +44,11 @@ export function App() {
         setCurrentTVShow(searchResponse[0]);
       } else {
         alert(
-          "We can't find your show, you maybe unspell it or it doesn't exist"
+          "We can't find your show, you maybe misspell it or it doesn't exist."
         );
       }
     } catch (e) {
-      alert("Error when searching your show");
+      alert("An error occurred while searching for the show.");
     }
   }
 
